@@ -3,6 +3,8 @@ phone_prices = {"basic": 300, "standard": 500, "superior": 1000}
 setup_options = {"a": 50, "b": 100}
 setup_names = {"a": "Standard Setup", "b": "Premium Setup"}
 
+from datetime import datetime
+
 # Function to calculate total cost
 def calculate_total_cost(quantity, phone_type, setup_option):
     phone_cost = phone_prices[phone_type] * quantity
@@ -11,6 +13,9 @@ def calculate_total_cost(quantity, phone_type, setup_option):
     vat = total_cost * 0.2
     total_with_vat = total_cost + vat
     return phone_cost, setup_cost, total_cost, vat, total_with_vat
+
+# Get current date and time 
+current_time = datetime.now().strftime("%A, %d %B %Y at %H:%M:%S")
 
 # Get customer details
 customer_name = input("Enter customer name: ")
@@ -50,6 +55,8 @@ phone_cost, setup_cost, total_cost, vat, total_with_vat = calculate_total_cost(q
 # Print summary
 summary = f"""
 --- Quotation ---
+
+Date and Time: {current_time}
 
 Customer Details:
 Name: {customer_name}
