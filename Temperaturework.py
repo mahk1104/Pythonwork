@@ -16,20 +16,5 @@ for temperature in range(1,13):
         lowest=a
 print ("The lowest temperature is "+str(lowest))
 
-a=count=1
-b=totalnumber=1
-a=int(input("Enter a number"))
-testscore=0
-while a==input("enter test score"):
-    if a.strip() =="" :
-        print(" space key pressed")
-    else:
-        testscore=0
-        a+b
-        a+1
-     
-        print( "bye")
-   
-average =a/b
-print("This is the average",average)
+
 
