@@ -6,7 +6,7 @@ from tkinter import*
 
 win=Tk()
 win.geometry("312x324")
-win.title("Calculater")
+win.title("Calculator")
 
 def btn(item):
     global expression

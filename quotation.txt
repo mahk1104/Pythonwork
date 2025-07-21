@@ -1,21 +1,23 @@
 
 --- Quotation ---
 
+Date and Time: Thursday, 10 July 2025 at 21:13:21
+
 Customer Details:
 Name: Andy Turner
 Company: FutureFone UK
-Contact Number: 07632587129
+Contact Number: 07342645210
 
 Smartphones:
-Quantity: 75
+Quantity: 70
 Type: Standard
-Phone cost: £37,500.00
+Phone cost: £35,000.00
 
 Setup Option:
 Option: B (Premium Setup)
-Total setup cost: £7,500.00
+Total setup cost: £7,000.00
 
 Cost Summary:
-Total cost (excl. VAT): £45,000.00
-VAT (20%): £9,000.00
-Total cost (incl. VAT): £54,000.00
+Total cost (excl. VAT): £42,000.00
+VAT (20%): £8,400.00
+Total cost (incl. VAT): £50,400.00
