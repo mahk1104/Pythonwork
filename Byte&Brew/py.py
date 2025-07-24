@@ -2,70 +2,125 @@ import datetime
 import json
 import os
 
-# File to store past orders
 ORDERS_FILE = "past_orders.json"
-STAFF_PASSWORD = "admin123"  # Set your staff password here
+STAFF_PASSWORD = "admin123"
 
-# Load past orders
 def load_past_orders():
     if os.path.exists(ORDERS_FILE):
         with open(ORDERS_FILE, "r") as file:
             return json.load(file)
     return []
 
-# Save order history
+def save_orders(orders):
+    with open(ORDERS_FILE, "w") as file:
+        json.dump(orders, file, indent=4)
+
 def save_order(order):
     past_orders = load_past_orders()
     past_orders.append(order)
-    with open(ORDERS_FILE, "w") as file:
-        json.dump(past_orders, file, indent=4)
+    save_orders(past_orders)
 
-# Get the current date and time
+def delete_all_orders():
+    save_orders([])
+
 order_date = datetime.datetime.now().strftime("%d-%m-%y")
 order_time = datetime.datetime.now().strftime("%H-%M-%S")
 
-# Get customer details
 first_name = input("Please enter your first name: ").strip().title()
 last_name = input("Please enter your last name: ").strip().title()
 
-# Ensure table number is a valid number
 while True:
     table_number = input("Please enter your table number: ").strip()
     if table_number.isdigit():
         break
     print("Invalid table number! Please enter a number.")
 
-print("\nWelcome to Byte and Brew Cafe!!")
+print("\nWelcome to Byte and Brew Knightsbridge Cafe!!")
 
-# Initialize order details
 total_price = 0.0
 items_ordered = {}
 
-# Menu and book list with pricing
 menu_items = {
     'food': {
-        'cheese sandwich': 4.85, 'cheesecake': 5.25, 'chocolate croissant': 4.50, 'muffin': 3.65,
-        'cupcake': 3.90, 'carrot cake': 5.10, 'danish': 4.50, 'chicken bagel': 5.60,
-        'chocolate cookie': 3.50, 'brownie': 3.50, 'steak pie': 4.70, 'caesar salad': 5.90,
-        'egg and cheese flan': 5.15, 'english breakfast': 15.40, 'jam on toast': 3.00,
-        'toast': 3.50, 'honey on toast': 4.50, 'cinnamon cruffin': 5.00, 'double english breakfast': 25.70
+        'wagyu beef steak': 120.00, 'truffle pasta': 150.00, 'foie gras terrine': 180.00,
+        'lobster bisque': 130.00, 'caviar blinis': 200.00, 'gold leaf cheesecake': 250.00,
+        'saffron risotto': 140.00, 'black truffle pizza': 220.00, 'foie gras burger': 190.00,
+        'king crab salad': 160.00, 'duck confit': 170.00, 'venison loin': 180.00,
+        'roasted quail': 150.00, 'sea bass en papillote': 140.00, 'foie gras ravioli': 200.00,
+        'truffle scrambled eggs': 180.00, 'lobster thermidor': 240.00, 'black cod miso': 210.00,
+        'beef wellington': 230.00, 'caviar and blinis': 220.00, 'oysters on ice': 160.00,
+        'sous vide lamb': 180.00, 'king prawn cocktail': 150.00, 'seafood platter': 270.00,
+        'chocolate souffle': 140.00, 'golden apple tart': 160.00, 'macaron assortment': 120.00,
+        'cheese board deluxe': 190.00, 'lobster roll': 200.00, 'black truffle fries': 130.00,
+        'scallops with caviar': 210.00, 'wild mushroom tart': 150.00, 'duck breast': 180.00,
+        'grilled asparagus': 140.00, 'white truffle risotto': 220.00, 'braised short rib': 200.00,
+        'lobster mac and cheese': 190.00, 'bluefin tuna tartare': 220.00, 'premium sushi platter': 300.00
     },
     'drinks': {
-        'latte': 4.50, 'english tea': 3.00, 'orange juice': 3.50, 'apple juice': 3.50,
-        'mocha': 5.40, 'double mocha': 7.10, 'frappuccino': 6.00, 'macchiato': 5.50,
-        'black coffee': 2.00, 'flat white': 3.00, 'chai tea': 4.50, 'cappuccino': 6.00,
-        'americano': 5.50, 'espresso': 4.00, 'green tea': 4.80
+        'grand cru champagne': 250.00, 'aged scotch whisky': 300.00, 'vintage port wine': 220.00,
+        'rare cognac': 280.00, 'luxury coffee blend': 50.00, 'single origin espresso': 40.00,
+        'imported green tea': 30.00, 'handcrafted mojito': 75.00, 'classic martini': 80.00,
+        'premium gin tonic': 70.00, 'aged rum': 90.00, 'organic matcha latte': 65.00,
+        'caviar bloody mary': 150.00, 'gold leaf cappuccino': 120.00, 'iced saffron tea': 60.00,
+        'luxury hot chocolate': 55.00, 'vintage red wine': 180.00, 'rare sake': 140.00,
+        'artisan lemonade': 35.00, 'exotic fruit punch': 40.00, 'champagne cocktail': 130.00,
+        'truffle infused cocktail': 160.00, 'blackberry brandy': 110.00, 'premium iced coffee': 50.00,
+        'sparkling elderflower': 40.00, 'classic negroni': 75.00, 'aged tequila': 90.00,
+        'golden turmeric latte': 45.00, 'french press coffee': 60.00, 'luxury chai latte': 55.00,
+        'berry sangria': 70.00, 'handcrafted mojito': 75.00, 'artisan ginger beer': 40.00,
+        'rare white rum': 85.00, 'aged bourbon': 120.00, 'exotic mango lassi': 55.00,
+        'premium herbal tea': 35.00, 'luxury espresso martini': 140.00, 'champagne punch': 150.00
+    },
+    'desserts': {
+        'gold leaf chocolate mousse': 180.00,
+        'saffron panna cotta': 170.00,
+        'black truffle ice cream': 160.00,
+        'caviar and caramel tart': 210.00,
+        'diamond dusted macarons': 200.00,
+        'white chocolate and raspberry souffle': 190.00,
+        'golden honey baklava': 150.00,
+        'lavender crème brûlée': 140.00,
+        'vanilla bean panna cotta': 130.00,
+        'chocolate lava cake with gold flakes': 220.00,
+        'passion fruit tartlet': 130.00,
+        'rose petal cheesecake': 160.00,
+        'black sesame parfait': 140.00,
+        'rich tiramisu with aged espresso': 180.00,
+        'caramelized fig tart': 150.00,
+        'blood orange sorbet': 120.00,
+        'hazelnut praline mille-feuille': 170.00,
+        'matcha green tea mousse': 140.00,
+        'dark chocolate ganache tart': 160.00,
+        'pistachio and rose water cake': 150.00,
+        'bourbon vanilla panna cotta': 160.00,
+        'white chocolate raspberry trifle': 170.00,
+        'golden saffron rice pudding': 140.00,
+        'chocolate and chili fondant': 180.00,
+        'almond and pear tart': 150.00,
+        'vanilla bean crème caramel': 130.00,
+        'hazelnut dacquoise': 160.00,
+        'fig and almond frangipane': 150.00,
+        'gold leaf profiteroles': 210.00,
+        'dark cherry clafoutis': 140.00,
+        'coconut and lime panna cotta': 130.00,
+        'spiced apple tarte tatin': 160.00,
+        'lemon verbena mousse': 140.00,
+        'white chocolate and passion fruit bombe': 190.00,
+        'café au lait mousse': 170.00,
+        'caramel pecan tart': 150.00,
+        'black currant sorbet': 120.00,
+        'chocolate peanut butter tart': 160.00,
+        'vanilla bean soufflé': 180.00,
     }
 }
 
 book_list = {
-    'The Alchemist': 10.00, 'A Song of Ice and Fire': 15.00, 'Moby Dick': 12.00, 'Treasure Island': 16.00,
-    'The Great Gatsby': 19.00, '1984': 21.00, 'The Woman in the Window': 17.00, 'The Silent Patient': 26.00,
-    'Pride and Prejudice': 10.00, 'The Hobbit': 14.00, "Salem's Lot": 13.00, 'The War Horse': 9.00,
-    'The Dance of Dragons': 23.00
+    'The Alchemist': 120.00, 'A Song of Ice and Fire': 150.00, 'Moby Dick': 130.00, 'Treasure Island': 160.00,
+    'The Great Gatsby': 190.00, '1984': 210.00, 'The Woman in the Window': 170.00, 'The Silent Patient': 260.00,
+    'Pride and Prejudice': 110.00, 'The Hobbit': 140.00, "Salem's Lot": 130.00, 'The War Horse': 90.00,
+    'The Dance of Dragons': 230.00
 }
 
-# Function to display menu
 def display_menu():
     print("\n*** Menu ***")
     for category, items in menu_items.items():
@@ -76,12 +131,10 @@ def display_menu():
     for book, price in book_list.items():
         print(f"  - {book} : £{price:.2f}")
 
-# Ask the customer if they want to see the menu
 view_menu = input("Would you like to see the menu? (yes/no): ").strip().lower()
 if view_menu in ['yes', 'y']:
     display_menu()
 
-# Function to get a valid quantity from the user
 def get_quantity():
     while True:
         quantity = input("How many would you like? ").strip()
@@ -89,7 +142,6 @@ def get_quantity():
             return int(quantity)
         print("Invalid quantity. Please enter a positive number.")
 
-# Function to handle ordering food and drinks
 def handle_order(category):
     global total_price
     while True:
@@ -98,15 +150,15 @@ def handle_order(category):
             quantity = get_quantity()
             price = menu_items[category][item]
             items_ordered[item] = items_ordered.get(item, 0) + quantity
-            total_price += price * quantity
-            print(f"Added {quantity} x {item.title()} : £{price * quantity:.2f} to your order. Total: £{total_price:.2f}")
+            item_total = price * quantity
+            total_price += item_total
+            print(f"Added {quantity} x {item.title()} : £{item_total:.2f} to your order. Total so far: £{total_price:.2f}")
         else:
             print(f"Sorry, we don't have {item}. Please choose from the menu.")
             continue
         if input("Would you like to order more? (yes/no): ").lower() not in ['yes', 'y']:
             break
 
-# Function to handle book orders
 def handle_book_order():
     global total_price
     while True:
@@ -115,71 +167,64 @@ def handle_book_order():
             quantity = get_quantity()
             price = book_list[book]
             items_ordered[book] = items_ordered.get(book, 0) + quantity
-            total_price += price * quantity
-            print(f"Added {quantity} x '{book}' : £{price * quantity:.2f} to your order. Total: £{total_price:.2f}")
+            item_total = price * quantity
+            total_price += item_total
+            print(f"Added {quantity} x {book} : £{item_total:.2f} to your order. Total so far: £{total_price:.2f}")
         else:
-            print("Sorry, we don't have that book.")
+            print(f"Sorry, we don't have the book '{book}'. Please choose from the book list.")
             continue
-        if input("Would you like to order another book? (yes/no): ").lower() not in ['yes', 'y']:
+        if input("Would you like to order more books? (yes/no): ").lower() not in ['yes', 'y']:
             break
 
-# Ask the user what they would like to order
 while True:
-    choice = input("\nWould you like to order food, drinks, or books? (Type your desired category or type 'done' to finish): ").lower()
-    if choice == 'food':
-        handle_order('food')
-    elif choice == 'drinks':
-        handle_order('drinks')
-    elif choice == 'books':
-        handle_book_order()
-    elif choice == 'done':
+    order_type = input("\nWhat would you like to order? (food, drink, dessert, book) or 'exit' to finish: ").lower()
+    if order_type == 'exit':
         break
+    elif order_type == 'food':
+        handle_order('food')
+    elif order_type == 'drink':
+        handle_order('drinks')
+    elif order_type == 'dessert':
+        handle_order('desserts')
+    elif order_type == 'book':
+        handle_book_order()
     else:
-        print("Invalid choice. Please enter 'food', 'drinks', 'books', or 'done'.")
+        print("Invalid choice. Please select from food, drink, dessert, book, or exit.")
 
-# Final Order Summary (defined before saving the order)
-order_summary = {
-    "Customer Name": f"{first_name} {last_name}",
-    "Table Number": table_number,
-    "Server": "Cafe Waiter",
-    "Date": order_date,
-    "Time": order_time,
-    "Items Ordered": items_ordered,
-    "Total Price": f"£{total_price:.2f}"
+print("\n--- Order Summary ---")
+print(f"Name: {first_name} {last_name}")
+print(f"Table Number: {table_number}")
+for item, qty in items_ordered.items():
+    if item in menu_items['food']:
+        price = menu_items['food'][item]
+    elif item in menu_items['drinks']:
+        price = menu_items['drinks'][item]
+    elif item in menu_items['desserts']:
+        price = menu_items['desserts'][item]
+    else:
+        price = book_list.get(item, 0)
+    print(f"{qty} x {item.title()} @ £{price:.2f} each = £{qty * price:.2f}")
+
+print(f"\nTotal Price: £{total_price:.2f}")
+
+order_data = {
+    "name": f"{first_name} {last_name}",
+    "table_number": table_number,
+    "items_ordered": items_ordered,
+    "total_price": total_price,
+    "date": order_date,
+    "time": order_time
 }
 
-print("\n*** Order Summary ***")
-for key, value in order_summary.items():
-    print(f"{key}: {value}")
+save_order(order_data)
 
-# Confirm order completion
-if input("\nWould you like to complete your order? (yes/no): ").lower() in ['yes', 'y']:
-    print("Thank you for your order! Enjoy your meal.")
-    # Ask for staff password to view past orders
-    view_past = input("\nWould you like to see past orders? (staff only) (yes/no): ").strip().lower()
-    if view_past in ['yes', 'y']:
-        password = input("Enter staff password: ")
-        if password == STAFF_PASSWORD:
-            past_orders = load_past_orders()
-            print("\n*** Past Orders ***")
-            # Initialize grand total accumulator
-            grand_total = 0.0
-            for i, order in enumerate(past_orders, start=1):
-                print(f"\nOrder {i}:")
-                for key, value in order.items():
-                    print(f"  {key}: {value}")
-                # Extract the numeric value from the 'Total Price' string (removing the currency symbol)
-                total_str = order.get("Total Price", "£0.00")
-                try:
-                    order_total = float(total_str.replace("£", "")) 
-                except ValueError:
-                    order_total = 0.0
-                grand_total += order_total
-            print(f"\nGrand Total of All Orders: £{grand_total:.2f}")
-        else:
-            print("Incorrect password! Access denied.")
+print("\nThank you for ordering at Byte and Brew Knightsbridge Cafe!")
+
+# Staff menu to delete all orders (optional)
+staff_mode = input("\nAre you staff? Enter password to access staff menu or press Enter to exit: ").strip()
+if staff_mode == STAFF_PASSWORD:
+    if input("Delete all past orders? (yes/no): ").lower() in ['yes', 'y']:
+        delete_all_orders()
+        print("All past orders have been deleted.")
 else:
-    print("Order not completed.")
-
-# Save the order
-save_order(order_summary)
+    print("Goodbye!")

@@ -1,0 +1,50 @@
+[
+    {
+        "first_name": "Brad Pitt",
+        "last_name": "Ot",
+        "table_number": "21",
+        "order_date": "24-07-25",
+        "order_time": "18-11-09",
+        "items_ordered": {},
+        "total_price": 0.0
+    },
+    {
+        "name": "Brad Pitt",
+        "table_number": "21",
+        "items_ordered": {
+            "wagyu beef steak": 5,
+            "king prawn cocktail": 6,
+            "duck breast": 5,
+            "beef wellington": 6,
+            "grand cru champagne": 6,
+            "handcrafted mojito": 6,
+            "gold leaf chocolate mousse": 6,
+            "rose petal cheesecake": 6
+        },
+        "total_price": 7770.0,
+        "date": "24-07-25",
+        "time": "18-41-08"
+    },
+    {
+        "name": "Brad Pitt",
+        "table_number": "21",
+        "items_ordered": {
+            "lobster bisque": 6,
+            "wagyu beef steak": 6,
+            "roasted quail": 7,
+            "sous vide lamb": 6,
+            "venison loin": 6,
+            "premium sushi platter": 6,
+            "grand cru champagne": 6,
+            "exotic fruit punch": 6,
+            "aged tequila": 6,
+            "champagne punch": 6,
+            "gold leaf chocolate mousse": 6,
+            "white chocolate and raspberry souffle": 6,
+            "vanilla bean panna cotta": 7
+        },
+        "total_price": 12820.0,
+        "date": "24-07-25",
+        "time": "18-47-38"
+    }
+]
