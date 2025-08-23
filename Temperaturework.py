@@ -1,20 +1,10 @@
-highest=0
+#
 
-for temperature in range(1,13):
-    print("Month " +str(temperature))
-    a=int(input("Enter the temperature"))
-    if highest<a:
-        highest=a
-print ("The highest temperature is "+str(highest))
-
-lowest=0
-
-for temperature in range(1,13):
-    print("Month " +str(temperature))
-    a=int(input("Enter the temperature"))
-    if lowest>a:
-        lowest=a
-print ("The lowest temperature is "+str(lowest))
-
-
-
+def numberof4s(num):
+    nums="283479131515574857242454150695950829533116861727855889075098381754637464939319255060400927701671139009848824012858361603563707660104710181942955596198946767837449448255379774726847104047534646208046684259069491293313677028989152104752162056966024058038150193511253382430035587640247496473263914199272604269922796"
+    count=0
+    for i in nums:
+     if i =="4":
+        count +=1
+    return count
+print(numberof4s(None))
